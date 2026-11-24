@@ -1,0 +1,43 @@
+# Independent metric environment for the audited Matpool paper comparison.
+# Create it with CPython 3.9.23.  Do not install this file into the exact
+# teacher-training environment (requirements-teacher-matpool.txt).
+# 指定这个环境的主软件包索引，保持当时安装来源可追踪。
+--index-url https://pypi.org/simple
+# 补充 PyTorch 对应 CUDA 构建的软件包索引；不要把 cu116 训练包与 cu124 评价包装进同一环境。
+--extra-index-url https://download.pytorch.org/whl/cu124
+
+# 神经网络、自动微分与 GPU 计算；训练和评价各自固定对应版本，不能混装。
+torch==2.6.0+cu124
+# 音频处理、重采样及评价 ASR 接口；必须与当前环境的 PyTorch 版本配套。
+torchaudio==2.6.0+cu124
+# mel、BNF 和说话人嵌入的数值数组读写与统计计算。
+numpy==1.26.4
+# 某些旧版上游包构建时使用的 Python 扩展编译支持。
+Cython==0.29.36
+# 科学计算与部分音频处理依赖，固定版本降低结果和兼容性差异。
+scipy==1.13.1
+# 读写 WAV/FLAC 波形及核对采样率与音频头。
+soundfile==0.12.1
+# 声学特征、mel 滤波器和重采样工具，版本变化可能影响接口与数值。
+librosa==0.11.0
+# 终端进度条，仅展示处理进度，不改变训练目标。
+tqdm==4.67.1
+
+# 客观评价使用其 ECAPA-TDNN 说话人验证接口。
+speechbrain==1.0.3
+# The DNSMOS function itself only needs ONNX Runtime.  The ``audio`` extra also
+# pulls PESQ/STOI build-time packages that are unrelated to the paper metrics.
+# 调用 DNSMOS 等客观指标封装；评价模型版本另由运行身份记录。
+torchmetrics==1.5.2
+# 加载既有 UTMOS 实现所需的训练框架兼容依赖，不代表本项目改用它训练。
+pytorch-lightning==1.5.10
+# 在 CPU 上执行 DNSMOS 的 ONNX 网络。
+onnxruntime==1.19.2
+# 获取和缓存评价工具使用的公开模型文件。
+huggingface-hub==0.24.7
+# 兼容上游 fairseq/UTMOS 的配置加载方式。
+hydra-core==1.0.7
+# 读取上游模型的层级配置，与 Hydra 版本配套。
+omegaconf==2.0.6
+# 按明确 Git 提交安装 UTMOS 依赖，避免上游最新代码改变模型加载行为。
+fairseq @ git+https://github.com/pytorch/fairseq.git@d03f4e771484a433f025f47744017c2eb6e9c6bc

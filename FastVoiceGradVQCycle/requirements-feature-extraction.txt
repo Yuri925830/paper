@@ -1,0 +1,41 @@
+# Public ppg-vc compatibility dependencies used only by preprocess/05 and 06.
+# PyTorch/torchaudio are intentionally not repeated here: install the mutually
+# compatible GPU builds first (the Matpool reproduction uses 1.13.1+cu116).
+# 声学特征、mel 滤波器和重采样工具，版本变化可能影响接口与数值。
+librosa==0.9.2
+# 读写 WAV/FLAC 波形及核对采样率与音频头。
+soundfile==0.12.1
+# BNF/说话人提取链中的音频重采样依赖。
+resampy==0.4.3
+# Python 3.8 / NumPy 1.23-compatible JIT stack used by librosa/resampy.
+# 为音频处理函数提供即时编译，必须与 Python、NumPy 和 llvmlite 配套。
+numba==0.56.4
+# Numba 使用的 LLVM 编译接口，不直接改变模型架构。
+llvmlite==0.39.1
+# resampy imports this backport on Python 3.8.
+# 为较旧 Python 提供包内资源读取兼容接口。
+importlib-resources==5.10.2
+# importlib 资源读取所依赖的 ZIP 路径兼容层。
+zipp==3.11.0
+# 管理公开数据或模型资源的下载缓存。
+pooch==1.6.0
+# librosa 兼容的音频读取后端。
+audioread==3.0.1
+# 读取上游提取器模型的 YAML 配置。
+PyYAML==6.0.2
+# 上游编码器接口的运行时类型检查兼容依赖。
+typeguard==2.13.3
+# 上游说话人编码器用于判断有声片段的语音活动检测组件。
+webrtcvad==2.0.10
+# 上游脚本使用的递归路径匹配工具。
+glob2==0.7
+# Direct imports in liusongxiang/ppg-vc commit b59cb986.  They are absent from
+# that repository's old requirements.txt but required by the Conformer frontend.
+# 满足固定 ppg-vc 快照的日志/配置辅助导入。
+humanfriendly==10.0
+# 上游 Conformer 前端处理复数张量所需的兼容封装。
+torch-complex==0.4.4
+# 计算编辑距离的依赖，可用于识别文字差异。
+editdistance==0.6.2
+# 旧版上游 Python 代码的兼容辅助层。
+six==1.16.0

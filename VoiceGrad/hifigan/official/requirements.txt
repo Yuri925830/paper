@@ -1,0 +1,16 @@
+# 这是上游官方 HiFi-GAN 发布时（2020 年）的历史环境快照，不是本仓库推荐的新环境。
+# 它把 torch 固定到 1.4.0，可能与现代 CUDA、Python 和根目录 requirements 冲突。
+# 只有在专门复刻官方旧环境时才单独使用；本项目训练请安装根目录 requirements.txt。
+torch==1.4.0
+# 数值数组。
+numpy==1.17.4
+# mel 频谱和音频处理。
+librosa==0.7.2
+# WAV 读取及科学计算。
+scipy==1.4.1
+# 官方训练脚本的曲线面板。
+tensorboard==2.0
+# WAV 读写。
+soundfile==0.10.3.post1
+# 频谱图片。
+matplotlib==3.1.3

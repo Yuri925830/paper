@@ -1,0 +1,40 @@
+# 历史全功能/评价环境的宽松依赖集合；不要用它启动本次固定教师训练。
+# Matpool 教师主实验使用 requirements-teacher-matpool.txt 的精确版本。
+# 数值数组和统计；mel/BNF/embedding 都以 NumPy 数组保存。
+# mel、BNF 和说话人嵌入的数值数组读写与统计计算。
+numpy>=1.21
+# 神经网络、自动微分和 GPU。请按你的 CUDA 版本从 PyTorch 官网选择安装包。
+# 神经网络、自动微分与 GPU 计算；训练和评价各自固定对应版本，不能混装。
+torch>=1.12
+# 评价脚本中的 wav2vec2 ASR 与音频重采样；版本应与 torch 匹配。
+# 音频处理、重采样及评价 ASR 接口；必须与当前环境的 PyTorch 版本配套。
+torchaudio>=0.12
+# 终端进度条。
+# 终端进度条，仅展示处理进度，不改变训练目标。
+tqdm>=4.60
+# 音频特征与重采样。
+# 声学特征、mel 滤波器和重采样工具，版本变化可能影响接口与数值。
+librosa>=0.9
+# WAV 读取、写入和文件头检查。
+# 读写 WAV/FLAC 波形及核对采样率与音频头。
+soundfile>=0.10
+# 科学计算与上游 HiFi-GAN WAV 工具。
+# 科学计算与部分音频处理依赖，固定版本降低结果和兼容性差异。
+scipy>=1.7
+# loss 曲线和上游频谱图。
+# 在租用服务器上绘制真实损失和诊断曲线。
+matplotlib>=3.5
+
+# 下列包只在完整四指标评估时需要。
+# ECAPA-TDNN 说话人验证。
+# 客观评价使用其 ECAPA-TDNN 说话人验证接口。
+speechbrain>=0.5.16
+# Microsoft DNSMOS 封装。
+# 调用 DNSMOS 等客观指标封装；评价模型版本另由运行身份记录。
+torchmetrics[audio]>=1.0
+# DNSMOS ONNX 模型运行时。
+# 在 CPU 上执行 DNSMOS 的 ONNX 网络。
+onnxruntime>=1.14
+# 官方 UTMOS strong learner 的 checkpoint 加载依赖。
+# 加载既有 UTMOS 实现所需的训练框架兼容依赖，不代表本项目改用它训练。
+pytorch-lightning>=1.5
